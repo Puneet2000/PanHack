@@ -8,6 +8,7 @@ app_name = 'object'
 urlpatterns = [
     path('upload/', views.upload, name='upload'),
     path('upload/push_upload/', views.SaveImage, name = 'save_image'),
-    path('government/', views.welcome)
+    path('government/', views.welcome),
+    re_path('status/(?P<issue_id>\d+)/$', views.get_status)
 
   ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

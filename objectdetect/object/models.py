@@ -11,3 +11,12 @@ class QueryImage(models.Model):
 
     class Meta:
         db_table = 'query_images'
+
+class Worker(models.Model):
+    name = models.CharField(max_length=500)
+    designation = models.CharField(max_length=100)
+    email = models.CharField(max_length=100)
+
+class Assigned(models.Model):
+    query = models.ForeignKey(QueryImage, on_delete=models.CASCADE)
+    worker = models.ForeignKey(Worker,on_delete=models.CASCADE)

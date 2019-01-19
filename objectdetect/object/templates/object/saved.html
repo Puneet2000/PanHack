@@ -2,12 +2,17 @@
    <body>
 
       {% if saved %}
-         <strong>Your Image was  added</strong>
+         <strong>Your Image was  added</strong><br>
+         <strong>Issue Number : {{issue_id}} </strong><br>
+         <strong>Assigned Worker Name : {{worker_name}}</strong><br>
+         <strong>Assigned Worker Email : {{worker_email}}</strong><br>
+         <strong>Status : {{status}}</strong><br>
       {% endif %}
 
       {% if not saved %}
          <strong>Your Image  was not added</strong>
       {% endif %}
+
 
    </body>
 </html>
