@@ -1,0 +1,26 @@
+<html>
+   <body>
+
+    <form method="post" enctype="multipart/form-data" id="fileUploadForm" action="push_upload/">
+
+          {% csrf_token %}
+
+         <br>
+
+
+        <label for="picture"> picture </label>
+        <input id ="picture" name="picture" type = "file" />
+
+
+
+        <input  type = "submit" value="Submit"/>
+
+
+    </form>
+
+
+
+
+
+   </body>
+</html>

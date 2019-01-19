@@ -4,6 +4,7 @@ from . import views
 app_name = 'object'
 
 urlpatterns = [
-    path('index/', views.index, name='index'),
-    path('responses/', views.responses, name='responses'),
-]
+    path('upload/', views.upload, name='upload'),
+    path('upload/push_upload/', views.SaveImage, name = 'save_image')
+
+  ]

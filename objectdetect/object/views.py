@@ -1,29 +1,40 @@
 from django.shortcuts import render, redirect
-from . forms import DocumentForm
-from .models import Document
-from .model import Finder
-import numpy as np
-
-def index(request):
-    documents = Document.objects.all()
-    return render(request, 'object/index.html', {'documents': documents})
+# from . forms import DocumentForm
+    # from .models import Document
+# from .model import Finder
 
 
-def responses(request):
-    print("hi")
-    if request.method == 'POST':
-        form = DocumentForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            image = Document.objects.filter().latest('uploaded_at')
-            rel_path = image.document.name
-            act_path = "media/" + str(rel_path)
-            object_detector = Finder(act_path)
-            ans = object_detector.predict()
-            return render(request, 'object/predict.html', {'id': ans})
+# -*- coding: utf-8 -*-
+from .forms import ProfileForm
+from .models import QueryImage
+
+
+def SaveImage(request):
+    saved = False
+
+    if request.method == "POST":
+        # Get the posted form
+
+        print(request.POST['name'])
+        MyProfileForm = ProfileForm(request.POST, request.FILES)
+        # print(MyProfileForm.errors)
+        if MyProfileForm.is_valid():
+            # name = request.POST['name_image']
+
+            image = QueryImage(query_image=request.FILES['picture'], name = request.POST['name'])
+
+            # image.uploaded_at = MyProfileForm.cleaned_data["uploaded_at"]
+            image.save()
+            saved = True
     else:
-        form = DocumentForm()
-    return render(request, 'object/responses.html', {
-        'form': form
-    })
+        MyProfileForm = ProfileForm()
+
+    return render(request, 'object/saved.html', locals())
+
+def upload(request):
+    # documents = Document.objects.all()
+    return render(request, 'object/upload_image.html')
+
+
+
 

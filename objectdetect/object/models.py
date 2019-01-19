@@ -1,7 +1,8 @@
 from django.db import models
 
 
-class Document(models.Model):
-    description = models.CharField(max_length=255, blank=True)
-    document = models.FileField(upload_to='images/')
-    uploaded_at = models.DateTimeField(auto_now_add=True)
+class QueryImage(models.Model):
+    query_image = models.FileField(upload_to='images/')
+    name = models.CharField(max_length=500)
+    class Meta:
+        db_table = 'query_images'
