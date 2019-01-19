@@ -1,0 +1,36 @@
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+     {% load staticfiles %}
+</head>
+
+   <body>
+
+<div class="container" style="padding-top: 80px;">
+{% for problem in user_data %}
+
+    <div class="feed" id="count_{{ forloop.counter }}" data-value="{{ problem.id }}">
+        <div class="box">
+            <div class="row">
+                <div class="col-4">
+                            <img src="/media/images/ai.jpg" style="object-fit:fill;width: 50%;height: 50%;">
+                </div>
+                <div class="col-5">
+                    <h5><b><span id="category_{{ problem.id }}">{{ problem.category }}</span></b></h5>
+                </div>
+                <div class="col-6">
+                    <h5><b><span id="long_{{ problem.id }}">{{ problem.long }}</span></b></h5>
+                </div>
+                <div class="col-7">
+                    <h5><b><span id="lat_{{ problem.id }}">{{ problem.lat }}</span></b></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br>
+{% endfor %}
+</div>
+
+
+   </body>
+
+</html>

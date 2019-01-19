@@ -1,17 +1,16 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-# from . forms import DocumentForm
-    # from .models import Document
-# from .model import Finder
-
-
-# -*- coding: utf-8 -*-
-# import cv2
-# from PIL import Image
-# from .vgg import predict
 from .forms import ProfileForm
 from .models import QueryImage
-
+from django.shortcuts import render
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_protect
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .models import QueryImage
+import logging
+import json
 
 def SaveImage(request):
     saved = False
@@ -45,5 +44,11 @@ def upload(request):
     return render(request, 'object/upload_image.html')
 
 
+def welcome(request):
 
-
+    images = QueryImage.objects.all()
+    print(images)
+    return render(request, 'object/gov.html',
+                    {
+                    'user_data': list(images)
+                    })

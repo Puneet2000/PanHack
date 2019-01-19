@@ -7,6 +7,7 @@ class QueryImage(models.Model):
     long = models.CharField(max_length=500, default="")
     lat = models.CharField(max_length = 500, default="")
     aadhar = models.CharField(max_length = 500, default="")
+    category = models.CharField(max_length = 500, default="spam")
 
     class Meta:
         db_table = 'query_images'
