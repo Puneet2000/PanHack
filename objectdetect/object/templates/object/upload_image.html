@@ -1,4 +1,4 @@
-<html>
+<html xmlns="http://www.w3.org/1999/html">
    <body>
 
     <form method="post" enctype="multipart/form-data" id="fileUploadForm" action="push_upload/">
@@ -6,21 +6,11 @@
           {% csrf_token %}
 
          <br>
-
-
+        <input id="name" name="name"> locality </input>
         <label for="picture"> picture </label>
         <input id ="picture" name="picture" type = "file" />
-
-
-
         <input  type = "submit" value="Submit"/>
 
-
     </form>
-
-
-
-
-
    </body>
 </html>

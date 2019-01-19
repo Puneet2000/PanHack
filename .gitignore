@@ -1,0 +1,4 @@
+*.pt
+objectdetect/media/
+objectdetect/__pycache__/
+*.pyc
