@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 # from . forms import DocumentForm
     # from .models import Document
@@ -5,9 +6,9 @@ from django.shortcuts import render, redirect
 
 
 # -*- coding: utf-8 -*-
-import cv2
-from PIL import Image
-from .vgg import predict
+# import cv2
+# from PIL import Image
+# from .vgg import predict
 from .forms import ProfileForm
 from .models import QueryImage
 
@@ -23,19 +24,21 @@ def SaveImage(request):
         # print(MyProfileForm.errors)
         if MyProfileForm.is_valid():
             # name = request.POST['name_image']
-            image = QueryImage(query_image=request.FILES['picture'], name = request.POST['name'])
+
+            image = QueryImage(query_image=request.FILES['picture'], name = request.POST['name'], long = request.POST['long'], lat = request.POST['lat'], aadhar = request.POST['aadhar'] )
             # image.uploaded_at = MyProfileForm.cleaned_data["uploaded_at"]
 
             image.save()
-            read_image = Image.open('/home/jatin/codes/PanHack/objectdetect/media/' + str(image.query_image))
-            _, _, image_type = predict(read_image)
-            print(read_image)
-            print("problem type is -> ", image_type)
+            # read_image = Image.open('/home/jatin/codes/PanHack/objectdetect/media/' + str(image.query_image))
+            # _, _, image_type = predict(read_image)
+            # print(read_image)
+            # print("problem type is -> ", image_type)
             saved = True
     else:
         MyProfileForm = ProfileForm()
 
-    return render(request, 'object/saved.html', locals())
+    return HttpResponse("success")
+    # return render(request, 'object/saved.html', locals())
 
 def upload(request):
     # documents = Document.objects.all()

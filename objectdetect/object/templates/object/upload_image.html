@@ -1,4 +1,9 @@
 <html xmlns="http://www.w3.org/1999/html">
+<head>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.4.3.min.js" > </script>
+</head>
+
    <body>
 
     <form method="post" enctype="multipart/form-data" id="fileUploadForm" action="push_upload/">
@@ -6,11 +11,42 @@
           {% csrf_token %}
 
          <br>
+        <input type="hidden" id="long" name="long" value="" />
+        <input type="hidden" id="lat" name="lat" value="" />
+
         <input id="name" name="name"> locality </input>
         <label for="picture"> picture </label>
         <input id ="picture" name="picture" type = "file" />
-        <input  type = "submit" value="Submit"/>
+        <input id ="aadhar" name="aadhar"> Aadhar </input>
+
+        <input  type = "submit" id="submit_query" value="Submit"/>
 
     </form>
+
    </body>
+<script>
+
+
+    var x = document.getElementById("demo");
+
+window.onload = function() {
+  getLocation();
+};
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(savePosition);
+  } else {
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function savePosition(position) {
+
+  $('#lat').val(position.coords.latitude);
+   $('#long').val(position.coords.longitude);
+
+}
+</script>
+
+
 </html>
