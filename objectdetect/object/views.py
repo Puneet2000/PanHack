@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .forms import ProfileForm
 from .models import QueryImage
+from .models import Worker
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_protect
@@ -75,3 +76,27 @@ def get_status(request,issue_id=30):
     worker_email = worker.email
     status = "pending"
     return render(request, 'object/saved.html', locals())
+
+
+def worker_login(request):
+    # documents = Document.objects.all()
+    return render(request, 'object/worker_login.html')
+
+
+def login(request):
+    if request.method == 'GET':
+        print(request.method)
+        name = request.GET['username']
+        # print(name)
+        password = request.GET['password']
+        print(name, password)
+        obj = Worker.objects.filter(name = name, password = password)
+        # print(len(obj))
+        if (len(obj) == 0):
+            response = HttpResponse('Fail article activity update')
+
+            return response
+        else:
+            response = HttpResponse('Success')
+            return response
+
