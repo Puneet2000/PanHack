@@ -13,5 +13,6 @@ urlpatterns = [
     path('login/', views.login, name ='login'),
     path('worker_login/', views.worker_login, name = 'worker_login'),
     path('comments/', views.comments, name = 'comments'),
-    path('comments/save_comments/', views.save_comments, name='save_comments'),
+    path('add_comments/save_comments/', views.save_comments, name='save_comments'),
+    path('add_comments/', views.add_comments, name = 'add_comments'),
     ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

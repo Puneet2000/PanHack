@@ -83,26 +83,25 @@ footer a {
     <div class="row">
         <div class="col-12">
             <div class="table-responsive">
-                {% for problem in user_data %}
+                {% for problem in comment_data %}
                 <table class="table table-striped">
-                    <thead>
+                    <!--<thead>-->
                         <tr>
-                            <th scope="col"> </th>
-                            <th scope="col">Category</th>
-                            <th scope="col">Severity</th>
-                            <th scope="col" >Longitude</th>
-                            <th scope="col" >Latitude</th>
+                            <th > Problem ID </th>
+                            <th > Assigned to </th>
+                            <th > status</th>
+                            <th  >comments</th>
                         </tr>
-                    </thead>
+                    <!--</thead>-->
                     <tbody>
 
                     <div class="feed" id="count_{{ forloop.counter }}" data-value="{{ problem.id }}">
                         <tr>
-                            <td><img src="/media/{{ problem.query_image }}" style="width:400px;height:400px;"/></td>
-                            <td><span id="category_{{ problem.id }}">{{ problem.category }}</span></td>
-                            <td><span id="long_{{ problem.confidence }}">{{ problem.confidence }}</td>
-                            <td><span id="long_{{ problem.id }}">{{ problem.long }}</span></td>
-                            <td class="text-right"><span id="lat_{{ problem.id }}">{{ problem.lat }}</span></td>
+                            <td><span id="category_{{ problem.query.category }}">{{ problem.query.id }}</span></td>
+                            <td><span id="category_{{ problem.worker.name }}">{{ problem.worker.name }}</span></td>
+                            <td><span id="long_{{ problem.status }}">{{ problem.status }}</span></td>
+                            <td><span id="long_{{ problem.logs }}">{{ problem.logs }}</td>
+
                         </tr>
                          </div>
 
@@ -115,6 +114,7 @@ footer a {
 
     </div>
 </div>
+
 
    </body>
 

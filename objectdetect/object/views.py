@@ -15,6 +15,8 @@ import json
 from PIL import Image
 import cv2
 from .vgg import predict
+# from .sentiment import predict_sentiment
+
 
 def SaveImage(request):
     saved = False
@@ -41,8 +43,9 @@ def SaveImage(request):
                 worker = Worker.objects.get(designation=image_type)
                 worker_name = worker.name
                 worker_email= worker.email
+                image.confidence = confidence
                 status = "pending"
-                assign = Assigned(query=image,worker=worker)
+                assign = Assigned(query=image,worker=worker,status=status)
                 assign.save()
                 image.save()
                 issue_id = assign.id  # issue_id should be assignment id, for comments
@@ -63,12 +66,23 @@ def upload(request):
 
 
 def welcome(request):
-
     images = QueryImage.objects.all()
+    images = sorted(images, key= lambda x: x.confidence, reverse=True)
+    for i in images:
+        print(i.confidence)
     return render(request, 'object/gov.html',
-                    {
-                    'user_data': list(images)
-                    })
+                    {'user_data': list(images)} )
+
+
+
+def comments(request):
+    comments = Assigned.objects.all()
+
+    # # images = sorted(images, key= lambda x: x.confidence, reverse=True)
+    # for i in images:
+    #     print(i.confidence)
+    return render(request, 'object/status_depend.html',
+                    {'comment_data': list(comments)} )
 
 
 def get_status(request, issue_id=30):
@@ -79,12 +93,13 @@ def get_status(request, issue_id=30):
     worker_name = worker.name
     issue_id = assign.id        # issue_id should be assignment id, for comments
     worker_email = worker.email
-    status = "pending"
-    category = image.category
+    status = assign.status
+    image_category = image.category
+    # print("image_category", image_category)
     return render(request, 'object/saved.html', locals())
 
 
-def comments(request):
+def add_comments(request):
     return render(request, 'object/save_comments.html')
 
 def save_comments(request):
@@ -96,12 +111,18 @@ def save_comments(request):
         return HttpResponse('Invalid ID')
     # print("commented -> ", assign.logs)
     comments = assign.logs
-    updated_comments = comments + current_comment
+    updated_comments = comments + '<->' + current_comment
     assign.logs = updated_comments
     assign.save()
     # print("updated comments -> ", assign.logs)
-    response = HttpResponse('Comments successfully added')
-    return response
+    # current_sentiment = predict_sentiment(assign.logs)
+    # print("Current worker status, according to public reviews is ", assign.logs)
+
+    return render(request, 'object/comments.html', locals())
+
+    # response = HttpResponse('Comments successfully added')
+    # return response
+
 
 def worker_login(request):
     # documents = Document.objects.all()
@@ -123,4 +144,5 @@ def login(request):
         else:
             response = HttpResponse('Success')
             return response
+
 

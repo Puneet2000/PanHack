@@ -32,7 +32,9 @@ def predict(image):
     image = image.unsqueeze(0)
     model = load_model()
     prediction = model(image)
+    prediction = torch.nn.functional.softmax(prediction, dim=1)
     a, b = torch.max(prediction, 1)
+
     return a, b, classes[b.data.item()]
 
 def extract_features(image):

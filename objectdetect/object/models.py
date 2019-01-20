@@ -8,6 +8,7 @@ class QueryImage(models.Model):
     lat = models.CharField(max_length = 500, default="")
     aadhar = models.CharField(max_length = 500, default="")
     category = models.CharField(max_length = 500, default="spam")
+    confidence = models.FloatField(default=0.5)
 
     class Meta:
         db_table = 'query_images'
@@ -22,4 +23,5 @@ class Worker(models.Model):
 class Assigned(models.Model):
     query = models.ForeignKey(QueryImage, on_delete=models.CASCADE)
     worker = models.ForeignKey(Worker,on_delete=models.CASCADE)
-    logs = models.CharField(max_length=1000, default="Going On!")
+    status = models.CharField(max_length=10, default="pending")
+    logs = models.CharField(max_length=1000, default="New Request Initiated")
