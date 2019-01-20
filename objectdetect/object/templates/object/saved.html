@@ -182,17 +182,19 @@
                 <div class="row">
                     <div class="col">
                         {% if saved %}
-                            <strong>Your Image was  added</strong><br>
+                            <strong>Your request has been added</strong><br>
                         {% endif %}
                         {% if not saved %}
-                            Your Image  was not added
+                            Your request was not added
                         {% endif %}
                     </div>
                 </div>
             </header>
             {% if saved %}
-            <main>
                 </div>
+            <input>
+            <main>
+
                 <table width="20" border="0" cellspacing="0" cellpadding="0" >
                     <thead>
                         <tr>
@@ -201,6 +203,7 @@
                         </tr>
                     </thead>
                     <tbody>
+
                         <tr>
                             <td class="qty">Issue Number</td>
                             <td class="total">{{issue_id}}</td>
@@ -218,9 +221,14 @@
                             <td class="qty">Status</td>
                             <td class="total">{{status}}</td>
                         </tr>
+                        <tr>
+                            <td class="qty">Request Category Type</td>
+                            <td class="total">{{category}}</td>
+                        </tr>
                     </tbody>
                 </table>
-                <div class="thanks">Thank you!</div>
+                <a href="{% url 'object:comments' %}">Thank you! You can also comment on your request</a>
+
             </main>
             {% endif %}
         </div>

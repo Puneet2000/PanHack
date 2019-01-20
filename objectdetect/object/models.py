@@ -22,3 +22,4 @@ class Worker(models.Model):
 class Assigned(models.Model):
     query = models.ForeignKey(QueryImage, on_delete=models.CASCADE)
     worker = models.ForeignKey(Worker,on_delete=models.CASCADE)
+    logs = models.CharField(max_length=1000, default="Going On!")

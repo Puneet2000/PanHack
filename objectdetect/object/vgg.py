@@ -9,9 +9,9 @@ import torchvision.models as models
 transforms = transforms.Compose( [transforms.ToTensor(), transforms.ToPILImage(),
                                    transforms.Resize((224, 224)), transforms.ToTensor()])
 
-classes = {0: 'spam', 1: 'garbage', 2: 'broken_roads', 3: 'fallen_trees'}
+classes = {0: 'spam', 1: 'garbage', 2: 'broken_roads', 3: 'fallen_trees', 4: 'stagnant water'}
 
-def load_model(num_classes=4, path='/home/puneet/PanHack/objectdetect/object/vgg_90.pt'):
+def load_model(num_classes=4, path='/home/jatin/codes/PanHack/objectdetect/object/vgg_90.pt'):
     model = models.vgg13_bn(True)
     model.classifier = nn.Sequential(
         nn.Linear(512 * 7 * 7, 4096),
@@ -33,7 +33,7 @@ def predict(image):
     model = load_model()
     prediction = model(image)
     a, b = torch.max(prediction, 1)
-    return a, b, classes[b.data.item]
+    return a, b, classes[b.data.item()]
 
 def extract_features(image):
     image = transforms(image)
